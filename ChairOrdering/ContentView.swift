@@ -11,10 +11,8 @@ struct ContentView: View {
     var body: some View {
         SplashView (imageSize: CGSize(width: 130, height: 130)){
             
-            Image("logo")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 300, height: 400)
+            LoginView()
+            
             
         } title: {
             

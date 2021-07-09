@@ -31,12 +31,15 @@ struct SplashView<Content: View,Title : View , Logo : View>: View {
     var body: some View {
         VStack(spacing:0){
             ZStack(){
-                Color(Colors.primary.rawValue)
-                    .background(Color(Colors.primary.rawValue))
+                if !endanimation{
+                    Color(Colors.primary.rawValue)
+                    .background(!endanimation ? Color(Colors.primary.rawValue) : Color("white"))
+                }
+                   
                
                 title
                     .offset(y: self.textAnimation ? 0 : 120)
-                    .offset(y : self.endanimation ? 20 : 0)
+//                    .offset(y : self.endanimation ? 20 : 0)
                     
                 
                 if !endanimation{
@@ -45,27 +48,26 @@ struct SplashView<Content: View,Title : View , Logo : View>: View {
                         .frame(width: self.imageSize.width, height: self.imageSize.height)
                     
                 }
-                
                 HStack{
-                    
                     Spacer()
-                    
                     if endanimation{
                         logo
                             .matchedGeometryEffect(id: "LOGO", in: animation)
                             .frame(width: 50, height: 50)
-                            .offset(y:20)
+//                            .offset(y:20)
                             .padding(.trailing)
                     }
                 }
-                
-            }
+                }
             .frame( height: endanimation ? 110 : nil,alignment: .bottom)
             .zIndex(1)
             
             
             content
-                .padding(.top,30)
+                .animation(
+                    endanimation ? Animation.easeInOut(duration: 1)
+                         : nil
+                )
                 .frame(height: endanimation ? nil : 0)
                 .zIndex(0)
         }
